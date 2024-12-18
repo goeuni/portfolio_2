@@ -1,7 +1,10 @@
-// app/about/page.tsx
 "use client";
+import dynamic from "next/dynamic";
 
-import Link from "next/link";
+// Biography 페이지를 동적으로 임포트
+const Biography = dynamic(() => import("./biography/page"));
+const Hobbies = dynamic(() => import("./hobbies/page"));
+const Profile = dynamic(() => import("./profile/page"));
 
 const AboutPage = () => {
   return (
@@ -21,30 +24,24 @@ const AboutPage = () => {
         </video>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-10">
-        <Link
-          href="/about/biography"
-          className="relative block bg-white text-blue-600 px-8 py-4 rounded-xl shadow-lg transition-transform duration-300 transform hover:scale-105"
-        >
-          <div className="absolute inset-0 bg-blue-200 rounded-xl opacity-50 transition-opacity duration-300 group-hover:opacity-0"></div>
-          <h3 className="text-2xl font-semibold z-10">Biography</h3>
-        </Link>
-
-        <Link
-          href="/about/hobbies"
-          className="relative block bg-white text-blue-600 px-8 py-4 rounded-xl shadow-lg transition-transform duration-300 transform hover:scale-105"
-        >
-          <div className="absolute inset-0 bg-green-200 rounded-xl opacity-50 transition-opacity duration-300 group-hover:opacity-0"></div>
-          <h3 className="text-2xl font-semibold z-10">Hobbies</h3>
-        </Link>
-
-        <Link
-          href="/about/profile"
-          className="relative block bg-white text-blue-600 px-8 py-4 rounded-xl shadow-lg transition-transform duration-300 transform hover:scale-105"
-        >
-          <div className="absolute inset-0 bg-yellow-200 rounded-xl opacity-50 transition-opacity duration-300 group-hover:opacity-0"></div>
-          <h3 className="text-2xl font-semibold z-10">Profile</h3>
-        </Link>
+      {/* 동적 페이지 임포트: 스크롤을 통해 바로 보이게 하기 */}
+      <div className="max-w-4xl mx-auto mb-10">
+        <div className="space-y-40">
+          {" "}
+          {/* 각 섹션 간의 공간을 넓힘 */}
+          {/* Biography 페이지 */}
+          <div id="biography" className="pb-64">
+            <Biography />
+          </div>
+          {/* Hobbies 페이지 */}
+          <div id="hobbies" className="pb-64">
+            <Hobbies />
+          </div>
+          {/* Profile 페이지 */}
+          <div id="profile" className="pb-64">
+            <Profile />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -58,50 +58,54 @@ const BiographyPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-600 to-pink-500 py-10 flex">
-      <div className="flex-1 flex items-center justify-center">
-        <div className="relative w-full max-w-md overflow-hidden rounded-lg shadow-lg">
+    <div className="min-h-screen bg-gray-100 py-10 px-4 lg:px-20 flex flex-col items-center">
+      {/* 이미지 슬라이더 */}
+      <div className="w-full max-w-3xl mb-12">
+        <div className="relative w-full h-[700px] overflow-hidden rounded-xl shadow-xl border-4 border-gray-300">
           <img
             src={images[currentImage]}
             alt="Biography Images"
-            className="w-full h-100 object-cover transition-transform duration-500"
+            className="w-full h-full object-contain transition-transform duration-500" // object-contain을 사용해 이미지가 부모 컨테이너에 맞게 조정
           />
           <div className="absolute inset-0 flex justify-between items-center p-4">
             <button
               onClick={prevImage}
-              className="bg-white text-purple-600 rounded-full p-2 hover:bg-gray-200 transition duration-300"
+              className="bg-white text-black rounded-full p-3 shadow-lg hover:bg-gray-200 transition duration-300"
             >
-              &#8249; {/* Left Arrow */}
+              &#8249;
             </button>
             <button
               onClick={nextImage}
-              className="bg-white text-purple-600 rounded-full p-2 hover:bg-gray-200 transition duration-300"
+              className="bg-white text-black rounded-full p-3 shadow-lg hover:bg-gray-200 transition duration-300"
             >
-              &#8250; {/* Right Arrow */}
+              &#8250;
             </button>
           </div>
         </div>
       </div>
-      <div className="flex-1">
-        <h2 className="text-5xl font-bold text-center text-white mb-10">
+
+      {/* 타임라인 */}
+      <div className="w-full max-w-2xl">
+        <h2 className="text-4xl font-bold text-center text-gray-900 mb-10">
           My Biography
         </h2>
-        <div className="border-l-4 border-white pl-4">
+        <div className="space-y-8">
           {timelineEvents.map((event, index) => (
-            <div key={index} className="relative mb-10">
-              <div className="absolute -left-5 w-12 h-12 bg-white rounded-full flex items-center justify-center text-purple-600">
+            <div
+              key={index}
+              className="relative group border-b-2 border-gray-300 pb-4"
+              onMouseEnter={() => setHoveredEventIndex(index)}
+              onMouseLeave={() => setHoveredEventIndex(null)}
+            >
+              <div className="absolute left-[-40px] top-0 w-16 h-16 bg-black rounded-full flex items-center justify-center text-white text-2xl shadow-xl group-hover:bg-purple-600 transition duration-300">
                 {event.year}
               </div>
-              <div
-                className="ml-8"
-                onMouseEnter={() => setHoveredEventIndex(index)}
-                onMouseLeave={() => setHoveredEventIndex(null)}
-              >
-                <h3 className="text-xl font-semibold text-white cursor-pointer">
+              <div className="ml-20">
+                <h3 className="text-2xl font-semibold text-gray-800">
                   {event.title}
                 </h3>
                 {hoveredEventIndex === index && (
-                  <p className="text-lg text-white mt-2 transition-opacity duration-300">
+                  <p className="text-lg text-gray-600 mt-2 opacity-100 transition-opacity duration-300">
                     {event.description}
                   </p>
                 )}
@@ -109,9 +113,11 @@ const BiographyPage = () => {
             </div>
           ))}
         </div>
+
+        {/* 돌아가기 링크 */}
         <Link
           href="/about"
-          className="mt-8 block text-blue-200 underline hover:text-blue-400 transition duration-300 transform hover:-translate-y-1 text-center"
+          className="mt-10 block text-blue-600 underline hover:text-blue-800 transition duration-300 transform hover:-translate-y-1 text-center"
         >
           Back to About Me
         </Link>
